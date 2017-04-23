@@ -18,20 +18,28 @@ hist(steps_by_day$steps, main = paste("Total Steps Each Day"), col="blue", xlab=
 rmean <- mean(steps_by_day$steps)
 rmedian <- median(steps_by_day$steps)
 ```
+![plot of chunk unnamed-chunk-2](instructions_fig/unnamed-chunk-2.png) 
+
 
 The mean is `r rmean` and the median is `r rmedian`.
 
 
 ## What is the average daily activity pattern?
 
-```{r}
+```r
 #Calculate average steps for each interval for all days, create Plot, and find interval with most average steps. 
 steps_by_interval <- aggregate(steps ~ interval, data, mean)
 
 plot(steps_by_interval$interval,steps_by_interval$steps, type="l", xlab="Interval", ylab="Number of Steps",main="Average Number of Steps per Day by Interval")
+```
 
+![plot of chunk unnamed-chunk-3](instructions_fig/unnamed-chunk-3.png) 
+
+```r
 max_interval <- steps_by_interval[which.max(steps_by_interval$steps),1]
 ```
+
+The 5-minute interval, on average across all the days in the data set, containing the maximum number of steps is 835.
 
 The 5-minute interval, on average across all the days in the data set, containing the maximum number of steps is `r max_interval`.
 
@@ -63,6 +71,9 @@ legend("topright", c("Imputed", "Non-imputed"), col=c("blue", "red"), lwd=10)
 total_diff <- sum(steps_by_day_i$steps) - sum(steps_by_day$steps)
 
 ```
+
+![plot of chunk unnamed-chunk-4](instructions_fig/unnamed-chunk-4.png) 
+
 Missing values were imputed by inserting the average for each interval. Thus, if interval 10 was missing on 10-02-2012, the average for that interval for all days (0.1320755), replaced the NA. 
 
 Zeroes were imputed for 10-01-2012 because it was the first day and would have been over 9,000 steps higher than the following day, which had only 126 steps. NAs then were assumed to be zeros to fit the rising trend of the data. 
@@ -88,4 +99,5 @@ library(lattice)
 xyplot(steps_by_interval_i$steps ~ steps_by_interval_i$interval|steps_by_interval_i$dow, main="Average Steps per Day by Interval",xlab="Interval", ylab="Steps",layout=c(1,2), type="l")
 
 ```
+![plot of chunk unnamed-chunk-5](instructions_fig/unnamed-chunk-5.png) 
 
